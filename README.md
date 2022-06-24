@@ -3,7 +3,7 @@ A crash course on data analysis with Python targeting undergraduate students at 
 
 ## Εβδομάδες 1 και 2: Εισαγωγή στην Python
 
-- **Γνωριμία**
+- ** Γνωριμία **
 
     - Πλεονεκτήματα & μειονεκτήματα συγκριτικά με άλλες γλώσσες προγραμματισμού
 
@@ -14,7 +14,7 @@ A crash course on data analysis with Python targeting undergraduate students at 
     - Χρήση του Jupyter Notebook
 
 
-- **Μεταβλητές**
+- ** Μεταβλητές **
 
     - Τύποι και ονόματα μεταβλητών
 
@@ -23,3 +23,12 @@ A crash course on data analysis with Python targeting undergraduate students at 
     - Τελεστές σύγκρισης
 
     - Λογικές εκφράσεις
+
+
+- ** Βασικές Δομές Δεδομένων **
+
+    - Λίστες
+
+    - Πλειάδες
+
+    - Λεξικά
