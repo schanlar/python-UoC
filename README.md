@@ -1,5 +1,6 @@
-# python-UoC
-A crash course on data analysis with Python targeting undergraduate students at the University of Crete
+# Εισαγωγή στην Ανάλυση Δεδομένων με Python
+A crash course on data analysis with Python targeting undergraduate students at the University of Crete (in Greek)
+
 
 ## Εβδομάδα 1: Εισαγωγή στην Python I
 
