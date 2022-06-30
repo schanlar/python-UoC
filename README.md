@@ -60,7 +60,7 @@ A crash course on data analysis with Python targeting undergraduate students at 
 
 
 
-## Εβδομάδα 3: Διαχείριση και Προσπέλαση Αρχείων
+## Εβδομάδα 3: Αριθμητική Pyhton, Διαχείριση και Προσπέλαση Αρχείων
 
 - **Η βιβλιοθήκη ``numpy``**
 
