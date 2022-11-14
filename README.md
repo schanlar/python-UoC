@@ -52,7 +52,9 @@ A crash course on data analysis with Python targeting undergraduate students at 
 
 - **Συναρτήσεις και Βιβλιοθήκες**
 
-    - Ορισμός συνάρτησης
+    - Ορισμός συνάρτησης και εμβέλεια μεταβλητών
+    
+    - Αλγοριθμικές εφαρμογές
 
     - Ανώνυμες συναρτήσεις
 
