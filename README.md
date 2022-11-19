@@ -64,6 +64,8 @@ A crash course on data analysis with Python targeting undergraduate students at 
 - **Αντικειμενοστρεφής Προγραμματισμός**
 
     - Ορισμός κλάσης και δημιουργία αντικειμένων
+    
+    - Ενθυλάκωση
 
     - Ιδιότητες και μέθοδοι
 
