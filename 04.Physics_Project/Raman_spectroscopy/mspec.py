@@ -51,6 +51,7 @@ class Spectrum:
                             component in the final mixture.
         """
         self._config = config
+        self._components = self._add_components(n_components = self._config.n_components, n_peaks = self._config.n_peaks)
         return None
 
     
@@ -93,7 +94,7 @@ class Spectrum:
         else:
             np.random.seed(seed) # for reproducibility
             
-            A, B, C = self._add_components(n_components = self._config.n_components, n_peaks = self._config.n_peaks)
+            A, B, C = self._components
             if (self._config.concentration is None):
                 self._config.concentration  = [0.5, 0.3, 0.2]
                 print("WARNING: initial configuration of spectrum did not include concentrations")
@@ -151,7 +152,7 @@ class Spectrum:
         return A * np.exp(-(x-mu)**2 / sigma**2)
 
     def _add_components(self,
-                        n_components: int = 3,
+                        n_components: Optional[int] = None,
                         n_peaks: Optional[List[int]] = None
     ) -> Tuple[np.ndarray, ...]:
         """
@@ -168,7 +169,11 @@ class Spectrum:
                                                         the normalized intensity of each component 
         """
         
-        assert n_components in [1,2,3], "Number of components can be 1, 2, or 3"
+        assert n_components in [None, 1,2,3], "Number of components can be 1, 2, 3, or None"
+        if n_components is None: 
+            n_components = self._config.n_components = 3
+            print("WARNING: initial configuration of spectrum did not include any components")
+            print("--> default components added:", self._config.n_components)
         gauss_a = np.zeros_like(self._config.wavelengths)
         spectrum_a = np.zeros_like(gauss_a)
         
@@ -204,7 +209,7 @@ class Spectrum:
             spectrum_a = gauss_a / np.max(gauss_a)
             spectrum_b = gauss_b / np.max(gauss_b)
             
-        elif (n_components == 3) and (n_peaks is None):
+        elif (n_components == 3 or n_components is None) and (n_peaks is None):
             # default: component A with 3 gaussians
             gauss_a =  self._gauss(x=self._config.wavelengths, mu=663, sigma=1., A=1.) + \
                        self._gauss(x=self._config.wavelengths, mu=735, sigma=1., A=.2) + \
@@ -306,7 +311,7 @@ class Spectrum:
        
         for idx, val in enumerate(range(self._config.n_components)):
             plt.plot(self._config.wavelengths,
-                     self._add_components(n_components = self._config.n_components, n_peaks = self._config.n_peaks)[idx],
+                     self._components[idx],
                      label=labels[idx])
         
         plt.title('Known components in our mixture', fontsize=12)
