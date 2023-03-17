@@ -3,20 +3,53 @@ import matplotlib.pyplot as plt
 import os
 from dataclasses import dataclass
 try:
-    from typing import List, Tuple, Optional
+    from typing import List, Tuple, Optional, Union
 except ImportError:
     os.system("pip install typing")
-    from typing import List, Tuple, Optional
+    from typing import List, Tuple, Optional, Union
     
 @dataclass
 class SpectrumConfig:
+    """
+        A dataclass to provide the basic initial configuration for a spectrum.
+
+        Data fields
+        ===========
+
+            wavelengths     :   array-like
+                                    the wavelength range for the spectrum.
+            n_components    :   int or None, default None
+                                    the number of individual components (max 3) that wil
+                                    compose the final mixture spectrum.
+            n_peaks         :   List[int] or None, default None
+                                    the number of Gaussian peaks of each individual component
+                                    spectrum.
+            concentration   :   List[float] or None, default None
+                                    the concentrations of each component in the final mixture.
+
+    """
     wavelengths: np.ndarray
     n_components: Optional[int] = None
     n_peaks: Optional[List[int]] = None
     concentration: Optional[List[float]] = None
 
 class Spectrum:
+    """
+        A class to generate a spectrum based on a mixture of up to three Gaussian components.
+    """
     def __init__(self, config: SpectrumConfig) -> None:
+        """
+            Initialize self.  See help(type(self)) for accurate signature.
+
+            Arguments
+            =========
+                config : __main__.SpectrumConfig
+                            initial configuration of the spectrum. It includes characterstics
+                            such as the wavelength range, the number of components (max 3) that
+                            will compose the final mixture spectrum, the number of Gaussian peaks
+                            of each individual component spectrum, and the concentrations of each
+                            component in the final mixture.
+        """
         self._config = config
         return None
 
@@ -28,6 +61,29 @@ class Spectrum:
                 seed: int = 10,
                 verbose: bool = False
     ) -> np.ndarray:
+        """
+            Arguments
+            =========
+                add_noise    : bool, default False
+                                if True add random noise to simulate contributions 
+                                from the measurement device.
+                add_baseline : bool, default False 
+                                if True add a polynomial baseline to simulate contributions 
+                                from fluorescence background.
+                add_spikes   : bool, default False
+                                if True add spikes at random wavelengths to simulate contributions
+                                from cosmic rays. The number of spikes can be controlled, indirectly, 
+                                by the "seed" argument (see below).
+                seed         : int, default 10
+                                seed for random number generator.
+                verbose      : bool, default False
+                                if True print a confirmation message when a source of noise is added to spectrum.
+
+            Returns
+            =======
+                mix_spectrum : array-like
+                                it returns a 1D numpy array of the intensity of the spectrum
+        """
         
         mix_spectrum = np.zeros_like(self._config.wavelengths)
         
@@ -69,13 +125,28 @@ class Spectrum:
             return mix_spectrum
     
     def _gauss(self,
-               x: np.ndarray,
-               mu: float,
-               sigma: float,
-               A: float = 1.
+               x: Union[int, float, np.ndarray],
+               mu: Union[int, float],
+               sigma: Union[int, float],
+               A: Union[int, float] = 1.
     ) -> np.ndarray:
         """
-        A Gaussian fit function
+            A Gaussian function
+
+            Arguments
+            =========
+                x     : int or float or array-like
+                            the range for the x-axis
+                mu    : int or float
+                            the position of the center of the peak
+                sigma : int or float
+                            the standard deviation
+                A     : int or float, default 1.0
+                            the height of the curve's peak
+
+            Returns
+            =======
+                array-like : the Gaussian distribution 
         """
         return A * np.exp(-(x-mu)**2 / sigma**2)
 
@@ -83,6 +154,19 @@ class Spectrum:
                         n_components: int = 3,
                         n_peaks: Optional[List[int]] = None
     ) -> Tuple[np.ndarray, ...]:
+        """
+            Arguments
+            =========
+                n_components : int, default 3
+                                    the number of components in the final mixture (max 3)
+                n_peaks      : List[int] or None, default None
+                                    the number of Gaussian peaks in each individual component
+
+            Returns
+            =======
+                spectrum_a, spectrum_b, spectrum_c : Tuple[array-like, ...]
+                                                        the normalized intensity of each component 
+        """
         
         assert n_components in [1,2,3], "Number of components can be 1, 2, or 3"
         gauss_a = np.zeros_like(self._config.wavelengths)
@@ -203,6 +287,18 @@ class Spectrum:
         return spectrum_a, spectrum_b, spectrum_c
     
     def plot_components(self) -> None:
+        """
+            A function that displays the spectrum of
+            each individual component of the mixture
+
+            Arguments
+            =========
+                None
+
+            Returns
+            =======
+                None
+        """
         if self._config.n_components is None:
             raise ValueError("There are no components to plot")
             
@@ -223,10 +319,34 @@ class Spectrum:
     
     def plot_spectrum(self,
                       color: str = "black",
-                      add_noise=False,
-                      add_baseline=False,
-                      add_spikes=False
+                      add_noise: bool = False,
+                      add_baseline: bool = False,
+                      add_spikes: bool = False,
+                      seed: int = 10
     ) -> None:
+        """
+            A function that displays the mixture spectrum
+
+            Arguments
+            =========
+                color        : str, default "black"
+                                the color of spectrum
+                add_noise    : bool, default False
+                                if True add and display random noise stem to simulate contributions 
+                                from the measurement device.
+                add_baseline : bool, default False
+                                if True add and display a polynomial baseline to simulate contributions 
+                                from fluorescence background.
+                add_spikes   : bool, default False
+                                if True add and display spikes at random wavelengths to simulate contributions
+                                from cosmic rays.
+                seed         : int, default 10
+                                seed for random number generator.
+
+            Returns
+            =======
+                None
+        """
         if self._config.n_components is None:
             raise ValueError("There are no components to plot")
         if (add_noise or add_baseline or add_spikes):
@@ -234,7 +354,7 @@ class Spectrum:
         else:
             title = "Mixture spectrum"
             
-        y = self.to_array(add_noise=add_noise, add_baseline=add_baseline, add_spikes=add_spikes)
+        y = self.to_array(add_noise=add_noise, add_baseline=add_baseline, add_spikes=add_spikes, seed=seed)
         plt.plot(self._config.wavelengths, y, color=color)
         
         plt.title(title, fontsize=12)
@@ -246,4 +366,6 @@ class Spectrum:
     
 
 if __name__ == "__main__":
-    pass
+    help(SpectrumConfig)
+    help(Spectrum)
+    
