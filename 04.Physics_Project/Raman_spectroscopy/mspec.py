@@ -97,7 +97,7 @@ class Spectrum:
             if (self._config.concentration is None):
                 self._config.concentration  = [0.5, 0.3, 0.2]
                 print("WARNING: initial configuration of spectrum did not include concentrations")
-                print("--> random concentrations added:", self._config.concentration)
+                print("--> default concentrations added:", self._config.concentration)
                 
             for c, s in zip(self._config.concentration, [A, B, C]):
                 mix_spectrum = mix_spectrum + (c * s)
