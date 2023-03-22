@@ -232,28 +232,34 @@ class Spectrum:
             
         elif (n_components == 1) and (n_peaks is not None):
             for _ in range(n_peaks[0]):
+                sigma = np.random.randint(1, 5)  # std
                 gauss_a = gauss_a + self._gauss(
                     x=self._config.wavelengths,
-                    mu=np.random.randint(int(np.min(self._config.wavelengths)), int(np.max(self._config.wavelengths))),
-                    sigma=np.random.randint(1, 5),
+                    # move center of the peak +/- 2std to avoid landing on the edge of the wavelength range
+                    mu=np.random.randint(int(np.min(self._config.wavelengths) + 2*sigma), int(np.max(self._config.wavelengths) - 2*sigma)),
+                    sigma=sigma,
                     A=np.random.randint(1, 11) / 10.
                     )
             spectrum_a = gauss_a / np.max(gauss_a)
             
         elif (n_components == 2) and (n_peaks is not None):
             for _ in range(n_peaks[0]):
+                sigma = np.random.randint(1, 5)  # std
                 gauss_a = gauss_a + self._gauss(
                     x=self._config.wavelengths,
-                    mu=np.random.randint(int(np.min(self._config.wavelengths)), int(np.max(self._config.wavelengths))),
-                    sigma=np.random.randint(1, 5),
+                    # move center of the peak +/- 2std to avoid landing on the edge of the wavelength range
+                    mu=np.random.randint(int(np.min(self._config.wavelengths) + 2*sigma), int(np.max(self._config.wavelengths) - 2*sigma)),
+                    sigma=sigma,
                     A=np.random.randint(1, 11) / 10.
                     )
                 
-            for _ in range(n_peaks[1]):    
+            for _ in range(n_peaks[1]):
+                sigma = np.random.randint(1, 5)  # std  
                 gauss_b = gauss_b + self._gauss(
                     x=self._config.wavelengths,
-                    mu=np.random.randint(int(np.min(self._config.wavelengths)), int(np.max(self._config.wavelengths))),
-                    sigma=np.random.randint(1, 5),
+                    # move center of the peak +/- 2std to avoid landing on the edge of the wavelength range
+                    mu=np.random.randint(int(np.min(self._config.wavelengths) + 2*sigma), int(np.max(self._config.wavelengths) - 2*sigma)),
+                    sigma=sigma,
                     A=np.random.randint(1, 11) / 10.
                     )
                 
@@ -262,26 +268,32 @@ class Spectrum:
             
         elif (n_components == 3) and (n_peaks is not None):
             for _ in range(n_peaks[0]):
+                sigma = np.random.randint(1, 5)  # std
                 gauss_a = gauss_a + self._gauss(
                     x=self._config.wavelengths,
-                    mu=np.random.randint(int(np.min(self._config.wavelengths)), int(np.max(self._config.wavelengths))),
-                    sigma=np.random.randint(1, 5),
+                    # move center of the peak +/- 2std to avoid landing on the edge of the wavelength range
+                    mu=np.random.randint(int(np.min(self._config.wavelengths) + 2*sigma), int(np.max(self._config.wavelengths) - 2*sigma)),
+                    sigma=sigma,
                     A=np.random.randint(1, 11) / 10.
                     )
                 
-            for _ in range(n_peaks[1]):         
+            for _ in range(n_peaks[1]):
+                sigma = np.random.randint(1, 5)  # std      
                 gauss_b = gauss_b + self._gauss(
                     x=self._config.wavelengths,
-                    mu=np.random.randint(int(np.min(self._config.wavelengths)), int(np.max(self._config.wavelengths))),
-                    sigma=np.random.randint(1, 5),
+                    # move center of the peak +/- 2std to avoid landing on the edge of the wavelength range
+                    mu=np.random.randint(int(np.min(self._config.wavelengths) + 2*sigma), int(np.max(self._config.wavelengths) - 2*sigma)),
+                    sigma=sigma,
                     A=np.random.randint(1, 11) / 10.
                     )
                 
             for _ in range(n_peaks[2]):
+                sigma = np.random.randint(1, 5)  # std
                 gauss_c = gauss_c + self._gauss(
                     x=self._config.wavelengths,
-                    mu=np.random.randint(int(np.min(self._config.wavelengths)), int(np.max(self._config.wavelengths))),
-                    sigma=np.random.randint(1, 5),
+                    # move center of the peak +/- 2std to avoid landing on the edge of the wavelength range
+                    mu=np.random.randint(int(np.min(self._config.wavelengths) + 2*sigma), int(np.max(self._config.wavelengths) - 2*sigma)),
+                    sigma=sigma,
                     A=np.random.randint(1, 11) / 10.
                     )
                 
@@ -324,6 +336,7 @@ class Spectrum:
     
     def plot_spectrum(self,
                       color: str = "black",
+                      label: Optional[str] = None,
                       add_noise: bool = False,
                       add_baseline: bool = False,
                       add_spikes: bool = False,
@@ -336,6 +349,8 @@ class Spectrum:
             =========
                 color        : str, default "black"
                                 the color of spectrum
+                label        : str or None, default None
+                                adds a label to the plot.
                 add_noise    : bool, default False
                                 if True add and display random noise stem to simulate contributions 
                                 from the measurement device.
@@ -360,11 +375,16 @@ class Spectrum:
             title = "Mixture spectrum"
             
         y = self.to_array(add_noise=add_noise, add_baseline=add_baseline, add_spikes=add_spikes, seed=seed)
-        plt.plot(self._config.wavelengths, y, color=color)
         
         plt.title(title, fontsize=12)
         plt.xlabel('Wavelength (nm)', fontsize=12)
         plt.ylabel('Intensity (arb. unit)', fontsize=12)
+
+        if label is None:
+            plt.plot(self._config.wavelengths, y, color=color)
+        else:
+            plt.plot(self._config.wavelengths, y, color=color, label=label)
+            plt.legend()
 
         plt.show()
         return None
