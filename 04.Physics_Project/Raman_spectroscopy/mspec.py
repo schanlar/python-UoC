@@ -110,9 +110,18 @@ class Spectrum:
                 
             if add_baseline:
                 # Baseline as a polynomial background:
-                poly = (0.2 * np.ones(len(self._config.wavelengths))) + \
-                       (0.0001 * self._config.wavelengths) + \
-                       (0.000051 * (self._config.wavelengths - 680)**2)
+                """
+                replaced v1 coeff:
+                    a_coeff = 130 / np.min(self._config.wavelengths)
+                    b_coeff = 0.065 / np.min(self._config.wavelengths)
+                    c_coeff = 0.03315 / np.min(self._config.wavelengths)
+                """
+                a_coeff = (np.random.randint(1,3)/10.)
+                b_coeff = (np.random.randint(1,3)/10000.)
+                c_coeff = (np.random.randint(1,8)/100000.)
+                poly = (a_coeff * np.ones(len(self._config.wavelengths))) + \
+                       (b_coeff * self._config.wavelengths) + \
+                       (c_coeff * (self._config.wavelengths - (np.min(self._config.wavelengths)+30))**2)
                 mix_spectrum = mix_spectrum + poly
                 if verbose: print("Baseline added to spectrum: Done")
                 
@@ -185,45 +194,45 @@ class Spectrum:
         
         if (n_components == 1) and (n_peaks is None):
             
-            # default: component with 3 gaussians
-            gauss_a =  self._gauss(x=self._config.wavelengths, mu=663, sigma=1., A=1.) + \
-                       self._gauss(x=self._config.wavelengths, mu=735, sigma=1., A=.2) + \
-                       self._gauss(x=self._config.wavelengths, mu=771, sigma=1., A=.3)
+            # default: component with 3 gaussians at fixed locations and fixed height/width
+            gauss_a =  self._gauss(x=self._config.wavelengths, mu=np.min(self._config.wavelengths)+13, sigma=1., A=1.) + \
+                       self._gauss(x=self._config.wavelengths, mu=np.min(self._config.wavelengths)+85, sigma=1., A=.2) + \
+                       self._gauss(x=self._config.wavelengths, mu=np.min(self._config.wavelengths)+121, sigma=1., A=.3)
             
             # component normalization
             spectrum_a = gauss_a / np.max(gauss_a)
             
         elif (n_components == 2) and (n_peaks is None):
-            # default: component A with 3 gaussians
-            gauss_a =  self._gauss(x=self._config.wavelengths, mu=663, sigma=1., A=1.) + \
-                       self._gauss(x=self._config.wavelengths, mu=735, sigma=1., A=.2) + \
-                       self._gauss(x=self._config.wavelengths, mu=771, sigma=1., A=.3)
+            # default: component A with 3 gaussians at fixed locations and fixed height/width
+            gauss_a =  self._gauss(x=self._config.wavelengths, mu=np.min(self._config.wavelengths)+13, sigma=1., A=1.) + \
+                       self._gauss(x=self._config.wavelengths, mu=np.min(self._config.wavelengths)+85, sigma=1., A=.2) + \
+                       self._gauss(x=self._config.wavelengths, mu=np.min(self._config.wavelengths)+121, sigma=1., A=.3)
 
-            # default: component B with 4 gaussians
-            gauss_b = self._gauss(x=self._config.wavelengths, mu=700, sigma=1., A=.2) + \
-                      self._gauss(x=self._config.wavelengths, mu=690, sigma=2., A=.5) + \
-                      self._gauss(x=self._config.wavelengths, mu=710, sigma=1., A=.75) + \
-                      self._gauss(x=self._config.wavelengths, mu=774, sigma=1.5, A=.25)
+            # default: component B with 4 gaussians at fixed locations and fixed height/width
+            gauss_b = self._gauss(x=self._config.wavelengths, mu=np.min(self._config.wavelengths)+50, sigma=1., A=.2) + \
+                      self._gauss(x=self._config.wavelengths, mu=np.min(self._config.wavelengths)+40, sigma=2., A=.5) + \
+                      self._gauss(x=self._config.wavelengths, mu=np.min(self._config.wavelengths)+60, sigma=1., A=.75) + \
+                      self._gauss(x=self._config.wavelengths, mu=np.min(self._config.wavelengths)+124, sigma=1.5, A=.25)
             
             # component normalization
             spectrum_a = gauss_a / np.max(gauss_a)
             spectrum_b = gauss_b / np.max(gauss_b)
             
         elif (n_components == 3 or n_components is None) and (n_peaks is None):
-            # default: component A with 3 gaussians
-            gauss_a =  self._gauss(x=self._config.wavelengths, mu=663, sigma=1., A=1.) + \
-                       self._gauss(x=self._config.wavelengths, mu=735, sigma=1., A=.2) + \
-                       self._gauss(x=self._config.wavelengths, mu=771, sigma=1., A=.3)
+            # default: component A with 3 gaussians at fixed locations and fixed height/width
+            gauss_a =  self._gauss(x=self._config.wavelengths, mu=np.min(self._config.wavelengths)+13, sigma=1., A=1.) + \
+                       self._gauss(x=self._config.wavelengths, mu=np.min(self._config.wavelengths)+85, sigma=1., A=.2) + \
+                       self._gauss(x=self._config.wavelengths, mu=np.min(self._config.wavelengths)+121, sigma=1., A=.3)
 
-            # default: component B with 4 gaussians
-            gauss_b = self._gauss(x=self._config.wavelengths, mu=700, sigma=1., A=.2) + \
-                      self._gauss(x=self._config.wavelengths, mu=690, sigma=2., A=.5) + \
-                      self._gauss(x=self._config.wavelengths, mu=710, sigma=1., A=.75) + \
-                      self._gauss(x=self._config.wavelengths, mu=774, sigma=1.5, A=.25)
+            # default: component B with 4 gaussians at fixed locations and fixed height/width
+            gauss_b = self._gauss(x=self._config.wavelengths, mu=np.min(self._config.wavelengths)+50, sigma=1., A=.2) + \
+                      self._gauss(x=self._config.wavelengths, mu=np.min(self._config.wavelengths)+40, sigma=2., A=.5) + \
+                      self._gauss(x=self._config.wavelengths, mu=np.min(self._config.wavelengths)+60, sigma=1., A=.75) + \
+                      self._gauss(x=self._config.wavelengths, mu=np.min(self._config.wavelengths)+124, sigma=1.5, A=.25)
 
-            # default: component C with 2 gaussians
-            gauss_c = self._gauss(x=self._config.wavelengths, mu=660, sigma=1., A=.05) + \
-                      self._gauss(x=self._config.wavelengths, mu=712, sigma=4., A=.7)
+            # default: component C with 2 gaussians at fixed locations and fixed height/width
+            gauss_c = self._gauss(x=self._config.wavelengths, mu=np.min(self._config.wavelengths)+10, sigma=1., A=.05) + \
+                      self._gauss(x=self._config.wavelengths, mu=np.min(self._config.wavelengths)+62, sigma=4., A=.7)
 
             # component normalization
             spectrum_a = gauss_a / np.max(gauss_a)
