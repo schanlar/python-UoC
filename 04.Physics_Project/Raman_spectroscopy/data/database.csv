@@ -1,0 +1,54 @@
+##BEGIN
+##---
+##LASER TYPE: Nd:YAG solid-state
+##LASER OUTPUT POWER: 100 mW
+##LASER EXCITATION WAVELENGTH: 632 nm
+##SPECTRAL RESOLUTION: 0.5 cm^(-1)
+##---
+##END
+Functional group/Vibration,Position (cm^-1),Raman,InfraRed
+C-C aliphatic chains,17091,weak,medium
+Se-Se,17163,medium,medium
+S-S,17355,weak,medium
+Si-O-Si,17869,strong,weak
+C-I,17944,weak,medium
+C-Br,18484,medium,strong
+C-Cl,19593,medium,medium
+C-S aliphatic,21608,medium,strong
+C-S aromatic,21698,weak,strong
+O-O,21974,weak,strong
+C-O-C,22185,weak,medium
+C-O-C asym,23320,medium,strong
+C=S,24693,strong,weak
+C-C aromaticring chain vibrations,24706,medium,weak
+C-(NO2),25060,strong,medium
+C-(NO2) asym,25203,weak,medium
+H2O,25442,medium,weak
+C=N,25838,weak,weak
+S-H,26378,weak,weak
+S-S,27834,medium,medium
+C-H stretching,28431,medium,medium
+N-H stretching,28606,weak,strong
+Bending of phenyl ring,29174,strong,strong
+Breathing of carbon ring,29255,weak,weak
+C=C,29996,weak,strong
+C=O stretching,30289,weak,medium
+C-O-H,30598,medium,weak
+C=O mixed with NH deformation,30926,weak,strong
+Glutathione,31047,medium,strong
+Phenylalanine,31250,medium,medium
+C-H scissoring,31770,strong,weak
+Rocking CO2,32274,strong,strong
+NH3 torsion mode,33547,weak,strong
+C-C stretching,33576,strong,medium
+CmH,33880,medium,weak
+D-(C)-galactosamine,33928,strong,strong
+Ca=Cb,34236,strong,weak
+Deformation of CCO3,34370,weak,weak
+CH3 umbrella mode,34456,weak,weak
+CH3 and CH2 deformations,34774,strong,strong
+CH2,35264,strong,medium
+CH3,35553,weak,medium
+R1R2R3CH,37288,weak,strong
+N-H,39874,weak,medium
+O-H,39938,weak,medium
