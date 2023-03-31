@@ -1,3 +1,17 @@
+"""
+mspec.py
+A simple python package to create synthetic spectra for demo purposes.
+
+Versions
+=========
+v0        : 10.03.23
+v1        : 18.03.23
+v2 (this) : 26.03.23
+
+@author: Savvas Chanlaridis
+"""
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 import os
@@ -33,6 +47,7 @@ class SpectrumConfig:
     n_peaks: Optional[List[int]] = None
     concentration: Optional[List[float]] = None
 
+        
 class Spectrum:
     """
         A class to generate a spectrum based on a mixture of up to three Gaussian components.
