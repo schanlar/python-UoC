@@ -7,48 +7,48 @@
 ##---
 ##END
 Functional group/Vibration,Position (cm^-1),Raman,InfraRed
-C-C aliphatic chains,17091,weak,medium
-Se-Se,17163,medium,medium
-S-S,17355,weak,medium
-Si-O-Si,17869,strong,weak
-C-I,17944,weak,medium
-C-Br,18484,medium,strong
-C-Cl,19593,medium,medium
-C-S aliphatic,21608,medium,strong
-C-S aromatic,21698,weak,strong
-O-O,21974,weak,strong
-C-O-C,22185,weak,medium
-C-O-C asym,23320,medium,strong
-C=S,24693,strong,weak
-C-C aromaticring chain vibrations,24706,medium,weak
-C-(NO2),25060,strong,medium
-C-(NO2) asym,25203,weak,medium
-H2O,25442,medium,weak
-C=N,25838,weak,weak
-S-H,26378,weak,weak
-S-S,27834,medium,medium
-C-H stretching,28431,medium,medium
-N-H stretching,28606,weak,strong
-Bending of phenyl ring,29174,strong,strong
-Breathing of carbon ring,29255,weak,weak
-C=C,29996,weak,strong
-C=O stretching,30289,weak,medium
-C-O-H,30598,medium,weak
-C=O mixed with NH deformation,30926,weak,strong
-Glutathione,31047,medium,strong
-Phenylalanine,31250,medium,medium
-C-H scissoring,31770,strong,weak
-Rocking CO2,32274,strong,strong
-NH3 torsion mode,33547,weak,strong
-C-C stretching,33576,strong,medium
-CmH,33880,medium,weak
-D-(C)-galactosamine,33928,strong,strong
-Ca=Cb,34236,strong,weak
-Deformation of CCO3,34370,weak,weak
-CH3 umbrella mode,34456,weak,weak
-CH3 and CH2 deformations,34774,strong,strong
-CH2,35264,strong,medium
-CH3,35553,weak,medium
-R1R2R3CH,37288,weak,strong
-N-H,39874,weak,medium
-O-H,39938,weak,medium
+C-C aliphatic chains,412 - 433,medium,strong
+Se-Se,463 - 489,weak,strong
+S-S,669 - 676,medium,medium
+Si-O-Si,676 - 681,weak,strong
+C-(NO2) asym,728 - 744,medium,weak
+C-(NO2),742 - 748,weak,medium
+C-I,748 - 765,weak,strong
+C-Br,795 - 816,weak,weak
+C-Cl,816 - 840,weak,strong
+C-S aliphatic,1200 - 1202,medium,medium
+C-S aromatic,1232 - 1234,medium,medium
+O-O,1264 - 1286,strong,weak
+Breathing of carbon ring,1295 - 1318,medium,medium
+C-O-C,1348 - 1376,weak,weak
+C-O-C asym,1436 - 1440,weak,medium
+C=S,1470 - 1490,medium,weak
+C-C aromaticring chain vibrations,1520 - 1522,weak,strong
+C=O mixed with N-H deformation,1524 - 1601,strong,strong
+H2O,1708 - 1726,weak,weak
+C=N,1726 - 1740,medium,weak
+S-H,1800 - 1808,weak,weak
+S-S,1838 - 1840,strong,strong
+C-H stretching,1840 - 1866,weak,strong
+N-H stretching,1926 - 1949,weak,medium
+Bending of phenyl ring,1949 - 1957,medium,strong
+C=C,2107 - 2117,weak,strong
+C=O stretching,2327 - 2332,weak,strong
+C-O-H,2422 - 2437,medium,weak
+Glutathione,2557 - 2565,weak,weak
+Phenylalanine,2745 - 2751,strong,strong
+C-H scissoring,2751 - 2777,weak,strong
+Rocking CO2,2777 - 2782,strong,weak
+NH3 torsion mode,2782 - 2783,strong,medium
+C-C stretching,2813 - 2831,weak,weak
+CmH,2861 - 2877,strong,weak
+D-(C)-galactosamine,2967 - 2995,strong,medium
+Ca=Cb,2995 - 3021,strong,medium
+Deformation of CCO3,3051 - 3078,weak,medium
+CH3 umbrella mode,3108 - 3133,weak,weak
+CH3 and CH2 deformations,3133 - 3137,weak,weak
+CH2,3137 - 3157,strong,medium
+CH3,3187 - 3204,strong,strong
+R1R2R3CH,3234 - 3235,weak,strong
+N-H,3235 - 3248,weak,weak
+O-H,3488 - 3501,strong,medium
