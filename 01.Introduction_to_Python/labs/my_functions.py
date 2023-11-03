@@ -1,42 +1,58 @@
 import numpy as np
 
-def my_sqrt(x, eps=1e-6):
-    '''
-    The function accepts as arguments the number from which 
-    to estimate the square root and the required accuracy epsilon.
-    '''
-    
-    # Check validity of input
-    if (x < 0) or (eps < 0):
-        raise ValueError("x and eps must not be negative numbers!")
-        return None
-    
-    
-    # Define the boundaries for the search space
-    # If x > 1 then the boundaries will be [0,x]
-    # If x < 1 then the boundaries will be [0,1]
-    a = 0 
-    b = max(x,1)
 
-    middle = (a+b)/2
+def my_sqrt(x, eps=1e-6, n_max=10000):
+    """
+        ARGUMENTS
+        =========
+            - x       : float or int
+            - eps     : float or int. The accuracy of the estimation
+            - n_max   : int. The maximum number of iterations to try
+                        to converge to solution.
+                        
+        RETURNS
+        =======
+            float. The square root estimation for number x.
+    """
     
-    # This serves as a flag variable
-    n = 0
+    try:
+        # Check validity of input
+        if (x < 0) or (eps < 0) or (n_max < 0):
+            raise ValueError
+
+        # Define the boundaries for the search space
+        a = 0
+        b = max(x,1)
+
+        # Divide and conquer: guess value in the middle of the search space
+        guess = (a+b)/2
+
+        # A counter to count the number of iterations required
+        # for convergence
+        n = 0
     
-    while np.abs((middle**2 - x)) > eps and n <= 10000:
-        
-        if middle**2 < x:
-            a = middle
-            middle = (a+b)/2
-        else:
-            b = middle
-            middle = (a+b)/2
-        
-        n += 1
-        
-    if n == 10000:
-        print('Something went wrong with the loop!')
+        while abs(guess**2 - x) > eps:
+            
+            if guess**2 < x:
+                a = guess
+                guess = (a+b)/2
+                
+            else:
+                b = guess
+                guess = (a+b)/2
+            
+            # Increment the counter
+            n += 1
+            
+            if n > n_max:
+                raise RuntimeError
+                
+    except ValueError:
+        print("ERROR: x, eps, and n_max cannot be negative numbers")
         return None
-        
-    else: 
-        return middle
+                
+    except RuntimeError:
+        print("ERROR: could not convergence to solution")
+        return None
+    
+    return guess
